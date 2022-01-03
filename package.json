@@ -4,7 +4,7 @@
   "version": "0.0.0-development",
   "description": "",
   "main": "./lib/index.js",
-  "module": "./lib/index.es.js",
+  "module": "./lib/es/index.js",
   "types": "./lib/index.d.ts",
   "files": [
     "lib/*",
