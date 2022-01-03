@@ -3,22 +3,57 @@
   "author": "Sebastian Wesolowski",
   "version": "0.0.0-development",
   "description": "",
-  "main": "index.js",
+  "main": "./lib/index.js",
+  "module": "./lib/index.es.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/*",
+    "README.md"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "run-s compile rollup:build",
+    "build:clear": "rimraf distTS",
+    "compile": "run-s compile:clear compile:buildJS compile:alias compile:copy",
+    "compile:clear": "npm run build:clear",
+    "compile:buildJS": "tsc --project ./tsconfig.compile.json --declaration",
+    "compile:alias": "tsc-alias -p ./tsconfig.compile.json",
+    "compile:copy": "copyfiles -u 1 \"./src/**/*.+(png|svg|scss)\"  distTS",
+    "rollup:build": "rollup -c",
     "semantic-release": "semantic-release --branches main",
     "acp": "git add . && npm run commit && git push",
     "commit": "git-cz"
   },
   "license": "ISC",
-  "devDependencies": {
-    "cz-conventional-changelog": "^3.3.0",
-    "semantic-release": "^18.0.1"
+  "dependencies": {
+    "@babel/core": "^7.16.5"
   },
-  "files": [
-    "lib/*",
-    "README.md"
-  ],
+  "devDependencies": {
+    "@babel/plugin-syntax-flow": "^7.14.5",
+    "@babel/plugin-transform-react-jsx": "^7.14.9",
+    "@babel/preset-react": "^7.16.5",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.1.1",
+    "@rollup/plugin-typescript": "^8.3.0",
+    "babel-loader": "^8.0.0",
+    "commitizen": "^4.2.4",
+    "copyfiles": "^2.4.1",
+    "cz-conventional-changelog": "^3.0.1",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^2.61.1",
+    "rollup-plugin-dts": "^4.0.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-scss": "^3.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "sass": "^1.45.2",
+    "semantic-release": "^18.0.1",
+    "tsc-alias": "^1.5.0",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.4",
+    "webpack": "^5.65.0"
+  },
   "private": false,
   "config": {
     "commitizen": {
